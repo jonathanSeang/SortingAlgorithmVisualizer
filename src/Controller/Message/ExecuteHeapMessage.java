@@ -1,5 +1,5 @@
 package Controller.Message;
 
-public class ExecuteHeapMessage implements Message {
+public class ExecuteHeapMessage implements IMessage {
 
 }

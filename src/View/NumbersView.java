@@ -10,10 +10,10 @@ import Model.NumsModel;
 
 public class NumbersView extends JFrame implements IObserver{
 	
-	JPanel mainPanel;
-	JLabel elementsLabel;
+	private JPanel mainPanel;
+	private JLabel elementsLabel;
 	
-	NumsModel numsModel;		
+	private NumsModel numsModel;		
 	
 	public NumbersView(NumsModel numsModel) {
 		this.numsModel = numsModel;
@@ -26,7 +26,7 @@ public class NumbersView extends JFrame implements IObserver{
 	
 	private void createFrame() {
 		
-		setTitle("View in number format");
+		setTitle("Numbers View");
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

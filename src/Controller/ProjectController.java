@@ -5,18 +5,19 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 import Controller.Message.ExecuteBubbleMessage;
-import Controller.Message.Message;
+import Controller.Message.IMessage;
 import Model.NumsModel;
+import View.BarsView;
 import View.MenuView;
 import View.NumbersView;
 
 public class ProjectController {
 	
 	private MenuView menuView;
-	private BlockingQueue<Message> queue;
+	private BlockingQueue<IMessage> queue;
 	private List<Valve> valves = new LinkedList<Valve>();
 	
-	public ProjectController(BlockingQueue<Message> queue) {
+	public ProjectController(BlockingQueue<IMessage> queue) {
 		
 		this.queue = queue;
 		menuView = new MenuView(queue);
@@ -26,12 +27,12 @@ public class ProjectController {
 	}
 	
 	private interface Valve {
-		public ValveResponse execute(Message message);
+		public ValveResponse execute(IMessage message);
 	}
 	
 	public void mainLoop() {
 		ValveResponse response = ValveResponse.EXECUTED;
-		Message message = null;
+		IMessage message = null;
 		while (response != ValveResponse.FINISH) {
 			try {
 				message = queue.take();
@@ -50,7 +51,7 @@ public class ProjectController {
 	
 	private class ExecuteBubbleMessageValve implements Valve {
 		@Override
-		public ValveResponse execute(Message message) {
+		public ValveResponse execute(IMessage message) {
 			if (message.getClass() != ExecuteBubbleMessage.class) {
 				return ValveResponse.MISS;
 			}
@@ -59,7 +60,8 @@ public class ProjectController {
 			
 			int[] arrOfElements = {10, 3, 5 ,7, 2, 8};	//generate random array later
 			NumsModel numsModel = new NumsModel(arrOfElements);
-			NumbersView numbersView = new NumbersView(numsModel);
+			//NumbersView numbersView = new NumbersView(numsModel);
+			BarsView barsView = new BarsView(numsModel);
 			numsModel.sort(Algorithms.BUBBLE);
 			
 			return ValveResponse.EXECUTED;

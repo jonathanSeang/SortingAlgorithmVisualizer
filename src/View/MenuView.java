@@ -14,7 +14,7 @@ import Controller.Message.ExecuteBubbleMessage;
 import Controller.Message.ExecuteHeapMessage;
 import Controller.Message.ExecuteMergeMessage;
 import Controller.Message.ExecuteQuickMessage;
-import Controller.Message.Message;
+import Controller.Message.IMessage;
 
 public class MenuView extends JFrame {
 
@@ -37,9 +37,9 @@ public class MenuView extends JFrame {
 	private JButton pauseButton;
 	private JButton terminateButton; 
 	
-	private BlockingQueue<Message> queue;
+	private BlockingQueue<IMessage> queue;
 	
-	public MenuView(BlockingQueue<Message> queue) {
+	public MenuView(BlockingQueue<IMessage> queue) {
 		
 		this.queue = queue;
 		
