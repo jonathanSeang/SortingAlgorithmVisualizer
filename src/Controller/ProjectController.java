@@ -13,7 +13,12 @@ import View.NumbersView;
 
 public class ProjectController {
 	
+	private final int ARRAY_SIZE = 10;
+	private final int MAX_ARRAY_VALUE = 10;
+	
 	private MenuView menuView;
+	private int[] intArray;
+	
 	private BlockingQueue<IMessage> queue;
 	private List<Valve> valves = new LinkedList<Valve>();
 	
@@ -23,6 +28,15 @@ public class ProjectController {
 		menuView = new MenuView(queue);
 		valves.add(new ExecuteBubbleMessageValve());
 		//add more valves for each algorithm later
+		
+	}
+	
+	private void generateRandomArray() {
+		intArray = new int[ARRAY_SIZE];
+		
+		for (int i = 0; i < ARRAY_SIZE; i++) {
+			intArray[i] = (int)(Math.random()*(MAX_ARRAY_VALUE+1));
+		}
 		
 	}
 	
@@ -58,9 +72,9 @@ public class ProjectController {
 
 			System.out.println("pressed bubble");
 			
-			int[] arrOfElements = {10, 3, 5 ,7, 2, 8};	//generate random array later
-			NumsModel numsModel = new NumsModel(arrOfElements);
-			//NumbersView numbersView = new NumbersView(numsModel);
+			generateRandomArray();
+			NumsModel numsModel = new NumsModel(intArray);
+			NumbersView numbersView = new NumbersView(numsModel);
 			BarsView barsView = new BarsView(numsModel);
 			numsModel.sort(Algorithms.BUBBLE);
 			

@@ -11,7 +11,7 @@ import View.IObserver;
 
 public class NumsModel implements IObservable{
 
-	private int SLEEP_TIMER = 400;
+	private int SLEEP_TIMER = 500;
 
 	private int[] 		currSorting;
 	private AllStates[] currStates;

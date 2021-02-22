@@ -9,9 +9,9 @@ import Model.NumsModel;
 
 public class BarsView extends JFrame implements IObserver{
 
-	private final int FRAME_WIDTH = 500;
-	private final int FRAME_HEIGHT = 500;
-	private final int SCALER = 10;
+	private final int FRAME_WIDTH = 1000;
+	private final int FRAME_HEIGHT = 1000;
+	private final int SCALER = 50;
 
 	private NumsModel numsModel;	
 	
