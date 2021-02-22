@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import View.IObserver;
+import View.MenuView;
 
 public class NumsModel implements IObservable{
-
-	private int SLEEP_TIMER = 500;
 
 	private int[] 		currSorting;
 	private AllStates[] currStates;
 
+	private MenuView menuView;	//need data on speed 
+	private int speedTimer;
 	private List<IObserver> allObservers;
 
 	//Possible states that an element can have
@@ -25,8 +26,10 @@ public class NumsModel implements IObservable{
 		FINISHED
 	}
 
-	public NumsModel(int[] currSorting) {
+	public NumsModel(int[] currSorting, MenuView menuView) {
 
+		this.menuView = menuView;
+		this.speedTimer = menuView.getSpeedSlider()*10;
 		this.currSorting = currSorting;
 		this.currStates = new AllStates[currSorting.length];
 		Arrays.fill(currStates, AllStates.STANDBY);
@@ -85,20 +88,20 @@ public class NumsModel implements IObservable{
 
 		for (int i = 0; i < currSorting.length-1; i++) {
 
-			System.out.println("we're now on: " + currSorting[i]);
+			//System.out.println("we're now on: " + currSorting[i]);
 			
 			for (int j = 0; j < currSorting.length-i-1; j++) {
 
-				System.out.println("Viewing: " + currSorting[j] + " and " + currSorting[j+1]);
+				//System.out.println("Viewing: " + currSorting[j] + " and " + currSorting[j+1]);
 
 				try {
-					Thread.sleep(SLEEP_TIMER);
+					Thread.sleep(speedTimer);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 
 				if (currSorting[j] > currSorting[j+1]) {
-					System.out.println("swapping: " + currSorting[j] + " and " + currSorting[j+1]);
+					//System.out.println("swapping: " + currSorting[j] + " and " + currSorting[j+1]);
 					swap(j, j+1);
 				}
 

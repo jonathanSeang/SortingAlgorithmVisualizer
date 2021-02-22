@@ -84,6 +84,14 @@ public class MenuView extends JFrame {
 		
 	}
 	
+	public int getSizeSlider() {
+		return sizeSlider.getValue();
+	}
+	
+	public int getSpeedSlider() {
+		return speedSlider.getValue();
+	}
+	
 	private void createAlgorithmsPanel() {
 		
 		algorithmsPanel = new JPanel(new FlowLayout());

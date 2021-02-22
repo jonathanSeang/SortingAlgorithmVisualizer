@@ -9,9 +9,7 @@ import Model.NumsModel;
 
 public class BarsView extends JFrame implements IObserver{
 
-	private final int FRAME_WIDTH = 1000;
-	private final int FRAME_HEIGHT = 1000;
-	private final int SCALER = 50;
+	private final int FRAME_DIMENSIONS = 1000;
 
 	private NumsModel numsModel;	
 	
@@ -27,7 +25,7 @@ public class BarsView extends JFrame implements IObserver{
 	private void createFrame() {
 		
 		setTitle("Bars View");
-		setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		setSize(FRAME_DIMENSIONS, FRAME_DIMENSIONS);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -39,10 +37,11 @@ public class BarsView extends JFrame implements IObserver{
 		
 		int[] currSorting = numsModel.getCurrSorting();
 		int arrSize = currSorting.length;
+		int scaler = FRAME_DIMENSIONS/arrSize;
 		
 		//x, y, width, height
 		for (int i = 0; i < currSorting.length; i++) {
-			g2.fillRect(FRAME_WIDTH/arrSize*i, FRAME_HEIGHT-(currSorting[i]*SCALER), FRAME_WIDTH/arrSize, (currSorting[i]*SCALER));
+			g2.fillRect(FRAME_DIMENSIONS/arrSize*i, FRAME_DIMENSIONS-(currSorting[i]*scaler), FRAME_DIMENSIONS/arrSize, (currSorting[i]*scaler));
 		}
 		
 	}

@@ -13,9 +13,6 @@ import View.NumbersView;
 
 public class ProjectController {
 	
-	private final int ARRAY_SIZE = 10;
-	private final int MAX_ARRAY_VALUE = 10;
-	
 	private MenuView menuView;
 	private int[] intArray;
 	
@@ -32,10 +29,10 @@ public class ProjectController {
 	}
 	
 	private void generateRandomArray() {
-		intArray = new int[ARRAY_SIZE];
+		intArray = new int[menuView.getSizeSlider()];
 		
-		for (int i = 0; i < ARRAY_SIZE; i++) {
-			intArray[i] = (int)(Math.random()*(MAX_ARRAY_VALUE+1));
+		for (int i = 0; i < menuView.getSizeSlider(); i++) {
+			intArray[i] = (int)(Math.random()*(menuView.getSizeSlider()+1));
 		}
 		
 	}
@@ -70,10 +67,10 @@ public class ProjectController {
 				return ValveResponse.MISS;
 			}
 
-			System.out.println("pressed bubble");
+			System.out.println("Beginning bubble sort");
 			
 			generateRandomArray();
-			NumsModel numsModel = new NumsModel(intArray);
+			NumsModel numsModel = new NumsModel(intArray, menuView);
 			NumbersView numbersView = new NumbersView(numsModel);
 			BarsView barsView = new BarsView(numsModel);
 			numsModel.sort(Algorithms.BUBBLE);
