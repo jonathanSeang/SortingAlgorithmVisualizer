@@ -36,7 +36,6 @@ public class NumbersView extends JFrame implements IObserver{
 	private void createMainPanel() {
 		
 		mainPanel = new JPanel();
-		mainPanel.setBackground(Color.BLUE);	
 		
 		elementsLabel = new JLabel();
 		setElementsLabelText();
