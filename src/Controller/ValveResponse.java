@@ -1,5 +1,10 @@
 package Controller;
 
-public class ValveResponse {
-
+/**
+ * Valve Responses for the Controller
+ */
+public enum ValveResponse {
+    MISS,
+    EXECUTED,
+    FINISH
 }
