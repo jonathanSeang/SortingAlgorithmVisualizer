@@ -58,8 +58,9 @@ public class ProjectController {
 			System.out.println("pressed bubble");
 			
 			int[] arrOfElements = {10, 3, 5 ,7, 2, 8};	//generate random array later
-			NumsModel numsModel = new NumsModel(arrOfElements, Algorithms.BUBBLE);
+			NumsModel numsModel = new NumsModel(arrOfElements);
 			NumbersView numbersView = new NumbersView(numsModel);
+			numsModel.sort(Algorithms.BUBBLE);
 			
 			return ValveResponse.EXECUTED;
 		}

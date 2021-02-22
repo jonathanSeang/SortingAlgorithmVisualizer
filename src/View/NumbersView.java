@@ -17,6 +17,7 @@ public class NumbersView extends JFrame implements IObserver{
 	
 	public NumbersView(NumsModel numsModel) {
 		this.numsModel = numsModel;
+		this.numsModel.add(this);
 		
 		createFrame();
 		createMainPanel();

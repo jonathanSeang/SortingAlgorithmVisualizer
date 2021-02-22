@@ -137,7 +137,7 @@ public class MenuView extends JFrame {
 		controllerPanel.add(prevStepButton);
 		controllerPanel.add(nextStepButton);
 		controllerPanel.add(playButton);
-		controllerPanel.add(pauseButton);
+		controllerPanel.add(pauseButton);		//maybe use wait() and notify()
 		controllerPanel.add(terminateButton);
 		
 		this.add(controllerPanel, BorderLayout.SOUTH);

@@ -11,6 +11,8 @@ import View.IObserver;
 
 public class NumsModel implements IObservable{
 
+	private int SLEEP_TIMER = 200;
+	
 	private int[] 		currSorting;
 	private AllStates[] currStates;
 	
@@ -23,12 +25,16 @@ public class NumsModel implements IObservable{
 		FINISHED
 	}
 
-	public NumsModel(int[] currSorting, Algorithms algorithm) {
+	public NumsModel(int[] currSorting) {
 		
 		this.currSorting = currSorting;
 		this.currStates = new AllStates[currSorting.length];
 		Arrays.fill(currStates, AllStates.STANDBY);
 		allObservers = new ArrayList<IObserver>();
+		
+	}
+	
+	public void sort(Algorithms algorithm) {
 		
 		switch(algorithm) {
 		
@@ -49,7 +55,6 @@ public class NumsModel implements IObservable{
 			break;
 		
 		}
-		
 	}
 
 	@Override
@@ -70,12 +75,40 @@ public class NumsModel implements IObservable{
 		return currSorting;
 	}	
 	
+	private void swap(int x, int y) {
+		int temp = currSorting[x];
+		currSorting[y] = currSorting[x];
+		currSorting[x] = currSorting[y];
+	}
+	
 	private void loopBubbleSort() {
 		
-		//testing is sorting works
-		Arrays.sort(currSorting);
-		alert();
-		
+			for (int i = 0; i < currSorting.length; i++) {
+				
+				for (int j = 1; j < currSorting.length-1; j++) {
+				
+					System.out.println("Viewing: " + currSorting[j] + " and " + currSorting[j-1]);
+					
+					try {
+						Thread.sleep(SLEEP_TIMER);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+					if (currSorting[j-1] > currSorting[j]) {
+						System.out.println("swapping: " + currSorting[j] + " and " + currSorting[j-1]);
+						swap(j, j-1);
+					}
+						
+					
+					alert();
+					
+				}
+			}
+			
+			
+			
+
 	}
 	
 	private void loopMergeSort() {
