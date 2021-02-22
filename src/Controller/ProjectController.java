@@ -32,7 +32,7 @@ public class ProjectController {
 		intArray = new int[menuView.getSizeSlider()];
 		
 		for (int i = 0; i < menuView.getSizeSlider(); i++) {
-			intArray[i] = (int)(Math.random()*(menuView.getSizeSlider()+1));
+			intArray[i] = (int)(Math.random()*(menuView.getSizeSlider()+1)+1);
 		}
 		
 	}

@@ -19,13 +19,6 @@ public class NumsModel implements IObservable{
 	private int speedTimer;
 	private List<IObserver> allObservers;
 
-	//Possible states that an element can have
-	private enum AllStates {
-		STANDBY,
-		VISITING,
-		FINISHED
-	}
-
 	public NumsModel(int[] currSorting, MenuView menuView) {
 
 		this.menuView = menuView;
@@ -77,6 +70,10 @@ public class NumsModel implements IObservable{
 	public int[] getCurrSorting() {
 		return currSorting;
 	}	
+	
+	public AllStates[] getCurrStates() {
+		return currStates;
+	}
 
 	private void swap(int x, int y) {
 		int temp = currSorting[x];
@@ -86,29 +83,43 @@ public class NumsModel implements IObservable{
 
 	private void loopBubbleSort() {
 
-		for (int i = 0; i < currSorting.length-1; i++) {
+		try {
 
-			//System.out.println("we're now on: " + currSorting[i]);
-			
-			for (int j = 0; j < currSorting.length-i-1; j++) {
+			for (int i = 0; i < currSorting.length-1; i++) {
 
-				//System.out.println("Viewing: " + currSorting[j] + " and " + currSorting[j+1]);
+				//System.out.println("we're now on: " + currSorting[i]);
 
-				try {
+				for (int j = 0; j < currSorting.length-i-1; j++) {
+
+					//System.out.println("Viewing: " + currSorting[j] + " and " + currSorting[j+1]);
+					currStates[j] = AllStates.VISITING;
+					currStates[j+1] = AllStates.VISITING;
+					alert();
+
 					Thread.sleep(speedTimer);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+
+					if (currSorting[j] > currSorting[j+1]) {
+						currStates[j] = AllStates.ALTERING;
+						currStates[j+1] = AllStates.ALTERING;
+						swap(j, j+1);	//maybe find a way to animate this in future
+						alert();
+						Thread.sleep(speedTimer);
+					}
+
+					currStates[j] = AllStates.STANDBY;
+					currStates[j+1] = AllStates.STANDBY;
+					alert();
+
 				}
-
-				if (currSorting[j] > currSorting[j+1]) {
-					//System.out.println("swapping: " + currSorting[j] + " and " + currSorting[j+1]);
-					swap(j, j+1);
-				}
-
-
+				
+				//finalized last one
+				currStates[currSorting.length-i-1] = AllStates.FINISHED;
 				alert();
-
+				
 			}
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 
 	}
