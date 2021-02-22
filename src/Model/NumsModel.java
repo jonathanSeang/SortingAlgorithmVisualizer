@@ -75,10 +75,34 @@ public class NumsModel implements IObservable{
 		return currStates;
 	}
 
+	
+	private void changeStates(int x, AllStates newState) {
+		currStates[x] = newState;
+		alert();
+	}
+	
+	private void changeStates(int x, int y, AllStates newState) {
+		currStates[x] = newState;
+		currStates[y] = newState;
+		alert();
+	}
+	
+	
+	
 	private void swap(int x, int y) {
+		
+		changeStates(x, y, AllStates.ALTERING);
+		
 		int temp = currSorting[x];
 		currSorting[x] = currSorting[y];
 		currSorting[y] = temp;
+		alert();
+		
+		try {
+			Thread.sleep(speedTimer);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void loopBubbleSort() {
@@ -87,37 +111,25 @@ public class NumsModel implements IObservable{
 
 			for (int i = 0; i < currSorting.length-1; i++) {
 
-				//System.out.println("we're now on: " + currSorting[i]);
-
 				for (int j = 0; j < currSorting.length-i-1; j++) {
 
-					//System.out.println("Viewing: " + currSorting[j] + " and " + currSorting[j+1]);
-					currStates[j] = AllStates.VISITING;
-					currStates[j+1] = AllStates.VISITING;
-					alert();
+					changeStates(j, j+1, AllStates.VISITING);
 
 					Thread.sleep(speedTimer);
 
 					if (currSorting[j] > currSorting[j+1]) {
-						currStates[j] = AllStates.ALTERING;
-						currStates[j+1] = AllStates.ALTERING;
 						swap(j, j+1);	//maybe find a way to animate this in future
-						alert();
-						Thread.sleep(speedTimer);
 					}
-
-					currStates[j] = AllStates.STANDBY;
-					currStates[j+1] = AllStates.STANDBY;
-					alert();
-
+					changeStates(j, j+1, AllStates.STANDBY);
 				}
 				
-				//finalized last one
-				currStates[currSorting.length-i-1] = AllStates.FINISHED;
-				alert();
+				//finalized last ones
+				changeStates(currSorting.length-i-1, AllStates.FINISHED);
 				
 			}
 			
+			changeStates(0, AllStates.FINISHED);
+
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

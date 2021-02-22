@@ -21,18 +21,19 @@ public class BarsView extends JFrame implements IObserver{
 
 		createFrame();
 
-
 	}
 
 	private void createFrame() {
-
-		setTitle("Bars View");
-		setSize(FRAME_DIMENSIONS, FRAME_DIMENSIONS);
+		
+		this.setTitle("Bars View");
+		this.setSize(FRAME_DIMENSIONS, FRAME_DIMENSIONS);
+		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
 
+	//will paint full canvas
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -48,7 +49,44 @@ public class BarsView extends JFrame implements IObserver{
 			switch(currStates[i]) {
 
 			case STANDBY: 
-				g2.setColor(Color.LIGHT_GRAY);
+				g2.setColor(Color.CYAN);
+				break;
+				
+			case VISITING:
+				g2.setColor(Color.GREEN);
+				break;
+				
+			case ALTERING:
+				g2.setColor(Color.YELLOW);
+				break;
+				
+			case FINISHED:
+				g2.setColor(Color.RED);
+				break;
+
+			}
+
+			g2.fillRect(FRAME_DIMENSIONS/arrSize*i, FRAME_DIMENSIONS-(currSorting[i]*scaler), FRAME_DIMENSIONS/arrSize, (currSorting[i]*scaler));
+		}
+
+	}
+	
+	public void paint(Graphics g, int left, int right) {
+		super.paint(g);
+		Graphics2D g2 = (Graphics2D) g;
+
+		int[] currSorting = numsModel.getCurrSorting();
+		AllStates[] currStates = numsModel.getCurrStates();
+		int arrSize = currSorting.length;
+		int scaler = FRAME_DIMENSIONS/arrSize;
+
+		//x, y, width, height
+		for (int i = 0; i < currSorting.length; i++) {
+
+			switch(currStates[i]) {
+
+			case STANDBY: 
+				g2.setColor(Color.CYAN);
 				break;
 				
 			case VISITING:
