@@ -14,7 +14,9 @@ public class NumsModel implements IObservable{
 
 	private int[] 		currSorting;
 	private AllStates[] currStates;
-
+	private int			leftAlter;
+	private int			rightAlter;
+	
 	private MenuView menuView;	//need data on speed 
 	private int speedTimer;
 	private List<IObserver> allObservers;
@@ -78,18 +80,36 @@ public class NumsModel implements IObservable{
 	
 	private void changeStates(int x, AllStates newState) {
 		currStates[x] = newState;
+		setAlters(x);
 		alert();
 	}
 	
 	private void changeStates(int x, int y, AllStates newState) {
 		currStates[x] = newState;
 		currStates[y] = newState;
+		setAlters(x, y);
 		alert();
 	}
 	
+	private void setAlters(int x, int y) {
+		this.leftAlter = x;
+		this.rightAlter = y;
+	}
+	
+	private void setAlters(int x) {
+		this.leftAlter = x;
+	}
+	
+	public int getLeftAlter() {
+		return this.leftAlter;
+	}
+	
+	public int getRightAlter() {
+		return this.rightAlter;
+	}
 	
 	
-	private void swap(int x, int y) {
+	private void swap(int x, int y) throws InterruptedException {
 		
 		changeStates(x, y, AllStates.ALTERING);
 		
@@ -97,12 +117,8 @@ public class NumsModel implements IObservable{
 		currSorting[x] = currSorting[y];
 		currSorting[y] = temp;
 		alert();
-		
-		try {
-			Thread.sleep(speedTimer);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	
+		Thread.sleep(speedTimer);
 	}
 
 	private void loopBubbleSort() {
@@ -114,7 +130,7 @@ public class NumsModel implements IObservable{
 				for (int j = 0; j < currSorting.length-i-1; j++) {
 
 					changeStates(j, j+1, AllStates.VISITING);
-
+					
 					Thread.sleep(speedTimer);
 
 					if (currSorting[j] > currSorting[j+1]) {

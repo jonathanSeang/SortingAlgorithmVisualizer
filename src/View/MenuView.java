@@ -69,7 +69,7 @@ public class MenuView extends JFrame {
 		sizeSlider.setLabelTable(sizeSlider.createStandardLabels(10));
 		
 		speedLabel = new JLabel("Speed: ");
-		speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+		speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
 		speedSlider.setPaintLabels(true);
 		speedSlider.setLabelTable(speedSlider.createStandardLabels(10));
 		
@@ -102,19 +102,19 @@ public class MenuView extends JFrame {
 			catch (InterruptedException e) { e.printStackTrace(); }
 		});
 		
-		mergeButton = new JButton("Merge");
+		mergeButton = new JButton("Merge (WIP)");
 		mergeButton.addActionListener(event -> {
 			try { this.queue.put(new ExecuteMergeMessage()); }
 			catch (InterruptedException e) { e.printStackTrace(); }
 		});
 		
-		heapButton = new JButton("Heap");
+		heapButton = new JButton("Heap (WIP)");
 		heapButton.addActionListener(event -> {
 			try { this.queue.put(new ExecuteHeapMessage()); }
 			catch (InterruptedException e) { e.printStackTrace(); }
 		});
 		
-		quickButton = new JButton("Quick");
+		quickButton = new JButton("Quick (WIP)");
 		quickButton.addActionListener(event -> {
 			try { this.queue.put(new ExecuteQuickMessage()); }
 			catch (InterruptedException e) { e.printStackTrace(); }
